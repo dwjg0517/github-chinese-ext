@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "GitHub 中文化插件",
+  "version": "1.9.4.4",
+  "description": "中文化 GitHub 界面。基于 maboloshi/github-chinese（GPL-3.0），词库已内嵌，无需联网下载。",
+  "author": "沙漠之子 (原作者) / 本地打包",
+  "icons": {},
+  "content_scripts": [
+    {
+      "matches": [
+        "https://github.com/*",
+        "https://gist.github.com/*",
+        "https://skills.github.com/*",
+        "https://education.github.com/*",
+        "https://www.githubstatus.com/*"
+      ],
+      "js": [
+        "00-i18n.js",
+        "01-gm-shim.js",
+        "02-main.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": false
+    }
+  ],
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://github.com/*",
+    "https://fanyi.iflyrec.com/*"
+  ]
+}
