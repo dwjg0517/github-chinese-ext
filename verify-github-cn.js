@@ -6,15 +6,23 @@
  * 本测试用 jsdom 构造一个仿 GitHub 页面，按 manifest 声明顺序加载三个
  * content script，然后检查英文文案有没有被替换。
  *
- * 用法：node tools/verify-github-cn.js
+ * 用法：node verify-github-cn.js [扩展目录]
+ *   不带参数时默认使用本脚本所在目录（脚本与扩展同目录，
+ *   这样单独 clone 这个仓库就能直接跑，不依赖外部路径）
  */
 const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
-const { JSDOM } = require('jsdom');
 
-// 默认扩展目录：优先取环境变量，否则取 D:\github-chinese-extension
-const DEFAULT_EXT = process.env.GHCN_EXT || 'D:\\github-chinese-extension';
+let JSDOM;
+try {
+    ({ JSDOM } = require('jsdom'));
+} catch (_) {
+    console.log('缺少 jsdom 依赖，请先执行：npm i jsdom');
+    process.exit(2);
+}
+
+const DEFAULT_EXT = process.env.GHCN_EXT || __dirname;
 const EXT = process.argv[2] || DEFAULT_EXT;
 
 const results = [];

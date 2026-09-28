@@ -76,6 +76,7 @@ msedge.exe --load-extension="D:\github-chinese-extension"
 ## 验证
 
 ```bash
+npm i jsdom          # 唯一的开发依赖
 node verify-github-cn.js
 ```
 
